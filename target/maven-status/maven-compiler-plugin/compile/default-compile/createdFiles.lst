@@ -1,2 +1,8 @@
+br\com\timtec\agendaeletronica\BasePage.class
+br\com\timtec\agendaeletronica\Inicio.class
+br\com\timtec\agendaeletronica\Criar$1.class
 br\com\timtec\agendaeletronica\WicketApplication.class
 br\com\timtec\agendaeletronica\HomePage.class
+br\com\timtec\agendaeletronica\Criar.class
+br\com\timtec\agendaeletronica\Pesquisar.class
+br\com\timtec\agendaeletronica\contato\Contato.class
