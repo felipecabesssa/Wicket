@@ -3,12 +3,18 @@ package br.com.timtec.agendaeletronica;
 import java.sql.Connection;
 import java.util.Arrays;
 
+import org.apache.wicket.feedback.ErrorLevelFeedbackMessageFilter;
+import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.validation.validator.EmailAddressValidator;
+import org.apache.wicket.validation.validator.StringValidator;
 
 import br.com.timtec.agendaeletronica.contato.Contato;
 import br.com.timtec.agendaeletronica.contato.ContatoDAO;
@@ -55,6 +61,11 @@ public class Criar extends BasePage{
 					}
 				});
 		form.add(inputNome, inputEmail, inputTelefone, comboEstadoCivil);
+		
+		inputNome.setLabel(Model.of("Nome do contato")).setRequired(true).add(StringValidator.maximumLength(10));
+		inputEmail.setLabel(Model.of("Email do contato")).add(EmailAddressValidator.getInstance());
+		
+		add(new FeedbackPanel("feedbackMessage", new ErrorLevelFeedbackMessageFilter(FeedbackMessage.ERROR)));
 	}
 	
 	private void salvar(Contato contatoSubmetido) {
