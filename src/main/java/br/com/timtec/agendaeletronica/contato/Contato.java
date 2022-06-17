@@ -9,6 +9,7 @@ public class Contato implements Serializable{
 	private String nome;
 	private String email;
 	private String telefone;
+	private EstadoCivil estadoCivil;
 	
 	
 	public Long getId() {
@@ -39,6 +40,12 @@ public class Contato implements Serializable{
 	@Override
 	public String toString(){
 		return "{Contato: nome='" + nome + "' email='" + email + "' telefone='" + telefone + "'}";
+	}
+	public EstadoCivil getEstadoCivil() {
+		return estadoCivil;
+	}
+	public void setEstadoCivil(EstadoCivil estadoCivil) {
+		this.estadoCivil = estadoCivil;
 	}
 
 }

@@ -1,14 +1,18 @@
 package br.com.timtec.agendaeletronica;
 
 import java.sql.Connection;
+import java.util.Arrays;
 
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 
 import br.com.timtec.agendaeletronica.contato.Contato;
 import br.com.timtec.agendaeletronica.contato.ContatoDAO;
+import br.com.timtec.agendaeletronica.contato.EstadoCivil;
 
 public class Criar extends BasePage{
 	private static final long serialVersionUID = -6619311231415722854L;
@@ -34,7 +38,23 @@ public class Criar extends BasePage{
 		TextField<String> inputNome = new TextField<String>("nome");
 		TextField<String> inputEmail = new TextField<String>("email");
 		TextField<String> inputTelefone = new TextField<String>("telefone");
-		form.add(inputNome, inputEmail, inputTelefone);
+		DropDownChoice<EstadoCivil> comboEstadoCivil = new DropDownChoice<EstadoCivil>("estadoCivil",
+				Arrays.asList(EstadoCivil.values()), new IChoiceRenderer<EstadoCivil>() {
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public Object getDisplayValue(EstadoCivil arg0) {
+						// Valor que será exibido na interface para o usuário correspondente a aquele valor do dropDownChoice
+						return arg0.getLabel();
+					}
+
+					@Override
+					public String getIdValue(EstadoCivil arg0, int arg1) {
+						// Valor que será colocado no option do HTML para diferenciar uma opção da outra
+						return arg0.name();
+					}
+				});
+		form.add(inputNome, inputEmail, inputTelefone, comboEstadoCivil);
 	}
 	
 	private void salvar(Contato contatoSubmetido) {
