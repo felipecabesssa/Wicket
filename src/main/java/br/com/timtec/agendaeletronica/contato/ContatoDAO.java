@@ -10,7 +10,8 @@ import java.util.List;
 public class ContatoDAO {
 
 	private static final String INSERT_SQL = "INSERT INTO contato (nome, email, telefone) VALUES (?, ?, ?)";
-	private static final String LIST_SQL = "SELECT id_contato, nome, emai, telefone, estado_civil FROM contato WHERE nome LIKE ?";
+	private static final String LIST_SQL = "SELECT id_contato, nome, email, telefone, estado_civil FROM contato WHERE nome LIKE ?";
+	private final static String UPDATE_SQL = "UPDATE CONTATO SET NOME=?, EMAIL=?, TELEFONE=?, ESTADO_CIVIL=? WHERE ID_CONTATO=?";
 	
 	private Connection conexao;
 
@@ -77,6 +78,29 @@ public class ContatoDAO {
 			}
 		}
 		
+	}
+	
+	public void atualizar(Contato contato){
+		PreparedStatement p = null;
+		try{
+			p = conexao.prepareStatement(UPDATE_SQL);
+			p.setString(1, contato.getNome());
+			p.setString(2, contato.getEmail());
+			p.setString(3, contato.getTelefone());
+			p.setString(4, contato.getEstadoCivil().name());
+			p.setLong(5, contato.getId());
+			p.executeUpdate();
+		} catch(SQLException e){
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}finally{
+			if(p != null){
+				try {
+					p.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
 	}
 
 }
